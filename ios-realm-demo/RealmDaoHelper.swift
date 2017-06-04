@@ -28,8 +28,8 @@ final class RealmDaoHelper <T: RealmSwift.Object> {
     static func makeRealmConfig() -> Realm.Configuration {
         var config = Realm.Configuration()
         
-        FilePathUtil.createApplicationSupport()
-        config.fileURL = RealmDaoHelper.realmFileURL(urlString: FilePathUtil.realmPath)
+        FileUtil.createApplicationSupport()
+        config.fileURL = RealmDaoHelper.realmFileURL(urlString: FileUtil.realmPath)
         config.encryptionKey = realmEncryptionKey()
         return config
     }
