@@ -28,10 +28,11 @@ final class ToDoDao {
         guard let object = dao.findFirst(key: model.taskID as AnyObject) else {
             return
         }
-        object.title = model.title
-        object.limitDate = model.limitDate
-        object.isDone = model.isDone
-        _ = dao.update(d: object)
+        _ = dao.update(d: object, block: {
+            object.title = model.title
+            object.limitDate = model.limitDate
+            object.isDone = model.isDone
+        })
     }
     
     static func delete(taskID: Int) {
@@ -47,10 +48,8 @@ final class ToDoDao {
     }
     
     static func findByID(taskID: Int) -> ToDoModel? {
-        guard let object = dao.findFirst(key: taskID as AnyObject) else {
-            return nil
-        }
-        return object
+        guard let object = dao.findFirst(key: taskID as AnyObject) else { return nil }
+        return object.copy() as? ToDoModel
     }
     
     static func findAll() -> [ToDoModel] {

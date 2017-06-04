@@ -8,12 +8,57 @@
 
 import RealmSwift
 
-final class RealmDaoHelper <T : RealmSwift.Object> {
+final class RealmDaoHelper <T: RealmSwift.Object> {
     let realm: Realm
     
     init() {
-        try! realm = Realm()
+        do {
+            try realm = Realm(configuration: RealmDaoHelper.makeRealmConfig())
+        } catch (let error) {
+            print(error.localizedDescription)
+            fatalError("RealmDaoHelper initialize error.")
+        }
     }
+    
+    // MARK: - Configuration
+    
+    /**
+     * Configurationを生成
+     */
+    static func makeRealmConfig() -> Realm.Configuration {
+        var config = Realm.Configuration()
+        
+        FilePathUtil.createApplicationSupport()
+        config.fileURL = RealmDaoHelper.realmFileURL(urlString: FilePathUtil.realmPath)
+        config.encryptionKey = realmEncryptionKey()
+        return config
+    }
+    
+    /**
+     * Realmファイルの保存先を設定
+     */
+    static func realmFileURL(urlString: String) -> URL? {
+        print("realmPath: \(urlString)")
+        return URL(fileURLWithPath: urlString)
+    }
+    
+    /**
+     * Realm暗号化キーを設定
+     */
+    static func realmEncryptionKey() -> Data? {
+        
+        // 64byte encryption key
+        let keyString = "BKvr8yHkRxGeeBMoqezWVOitFXtNhecBwqiVuL3phb5iR0eb0KPthLetHzR6WX8G"
+        let keyData = keyString.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        
+        if let keyData = keyData {
+            print("realmKey: \(keyData.map { String(format: "%.2hhx", $0) }.joined())")
+        }
+        
+        return keyData
+    }
+    
+    // MARK: - newId
     
     /**
      * 新規主キー発行
@@ -24,9 +69,11 @@ final class RealmDaoHelper <T : RealmSwift.Object> {
             return nil
         }
         
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: RealmDaoHelper.makeRealmConfig())
         return (realm.objects(T.self).max(ofProperty: key) as Int? ?? 0) + 1
     }
+    
+    // MARK: - find
     
     /**
      * 全件取得
@@ -56,6 +103,8 @@ final class RealmDaoHelper <T : RealmSwift.Object> {
         return findAll().last
     }
     
+    // MARK: - add
+    
     /**
      * レコード追加を取得
      */
@@ -68,6 +117,8 @@ final class RealmDaoHelper <T : RealmSwift.Object> {
             print(error.description)
         }
     }
+    
+    // MARK: - update
     
     /**
      * T: RealmSwift.Object で primaryKey()が実装されている時のみ有効
@@ -84,6 +135,8 @@ final class RealmDaoHelper <T : RealmSwift.Object> {
         }
         return false
     }
+    
+    // MARK: - delete
     
     /**
      * レコード削除

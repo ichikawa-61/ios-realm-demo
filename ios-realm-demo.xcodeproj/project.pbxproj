@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6631DC0621B59131A55177D1 /* Pods_ios_realm_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3315CE6AE02A8771E25BA0 /* Pods_ios_realm_demo.framework */; };
 		A9F34C457BF08630D196C986 /* Pods_ios_realm_demoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B2BA7E6BDA67C5D8C44DA2 /* Pods_ios_realm_demoTests.framework */; };
+		B6ACF7861EE3CEC0001487E9 /* FilePathUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ACF7851EE3CEC0001487E9 /* FilePathUtil.swift */; };
+		B6ACF7881EE3CFD7001487E9 /* String+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ACF7871EE3CFD7001487E9 /* String+Path.swift */; };
 		BC0717471E5743C900FED2F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0717461E5743C900FED2F4 /* AppDelegate.swift */; };
 		BC0717491E5743C900FED2F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0717481E5743C900FED2F4 /* ViewController.swift */; };
 		BC07174C1E5743C900FED2F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC07174A1E5743C900FED2F4 /* Main.storyboard */; };
@@ -39,6 +41,8 @@
 		40BEFE8AA6CB68A39D42DD3F /* Pods-ios-realm-demoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-realm-demoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ios-realm-demoTests/Pods-ios-realm-demoTests.release.xcconfig"; sourceTree = "<group>"; };
 		50B2BA7E6BDA67C5D8C44DA2 /* Pods_ios_realm_demoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_realm_demoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D04E847AFF710F64B6B001A /* Pods-ios-realm-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-realm-demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ios-realm-demo/Pods-ios-realm-demo.release.xcconfig"; sourceTree = "<group>"; };
+		B6ACF7851EE3CEC0001487E9 /* FilePathUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePathUtil.swift; sourceTree = "<group>"; };
+		B6ACF7871EE3CFD7001487E9 /* String+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Path.swift"; sourceTree = "<group>"; };
 		BC0717431E5743C900FED2F4 /* ios-realm-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-realm-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC0717461E5743C900FED2F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC0717481E5743C900FED2F4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 			children = (
 				BC07176E1E57AB6500FED2F4 /* Date+String.swift */,
 				BC0717761E57AD2200FED2F4 /* String+Date.swift */,
+				B6ACF7851EE3CEC0001487E9 /* FilePathUtil.swift */,
+				B6ACF7871EE3CFD7001487E9 /* String+Path.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -334,7 +340,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		1EFF53A78C27F8347158872C /* [CP] Copy Pods Resources */ = {
@@ -364,7 +370,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		875EDDD67636A730B469348C /* [CP] Embed Pods Frameworks */ = {
@@ -407,8 +413,10 @@
 				BC0717491E5743C900FED2F4 /* ViewController.swift in Sources */,
 				BC0717471E5743C900FED2F4 /* AppDelegate.swift in Sources */,
 				BCD9B0231E742CDA00FBCCB4 /* RealmDaoHelper.swift in Sources */,
+				B6ACF7881EE3CFD7001487E9 /* String+Path.swift in Sources */,
 				BC07176B1E574A0C00FED2F4 /* ToDoDao.swift in Sources */,
 				BC07176F1E57AB6500FED2F4 /* Date+String.swift in Sources */,
+				B6ACF7861EE3CEC0001487E9 /* FilePathUtil.swift in Sources */,
 				BC0717671E57450300FED2F4 /* ToDoModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

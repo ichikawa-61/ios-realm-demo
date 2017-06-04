@@ -19,3 +19,16 @@ class ToDoModel: Object {
         return "taskID"
     }
 }
+
+// MARK: NSCopying
+extension ToDoModel: NSCopying {
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copyObject = ToDoModel()
+        copyObject.taskID = taskID
+        copyObject.title = title
+        copyObject.limitDate = limitDate
+        copyObject.isDone = isDone
+        
+        return copyObject
+    }
+}
